@@ -30,5 +30,5 @@ def build_hit_hades():
     Props.add_to(db, pars)
 
     settings_dict = Props.read_from(args.settings) if args.settings else {}
-    
+
     build_hit(args.input, hit_config=db, outfile=args.output, lh5_tables=["/dsp"], **settings_dict)
