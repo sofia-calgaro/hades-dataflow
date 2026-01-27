@@ -56,7 +56,7 @@ def get_pattern_tier(setup, tier, check_in_cycle=True):
         raise Exception(msg)
 
     if tier_path(setup) not in str(file_pattern) and check_in_cycle is True:
-        return "/tmp/" + key_pattern() + f"tier_{tier}.lh5"
+        return "/tmp/{campaign}/" + key_pattern() + f"-tier_{tier}.lh5"
     else:
         return file_pattern
 
@@ -85,9 +85,9 @@ def get_pattern_pars(setup, tier, name=None, extension="yaml", check_in_cycle=Tr
 
     if pars_path(setup) not in str(file_pattern) and check_in_cycle is True:
         if name is None:
-            return "/tmp/" + par_pattern() + f"-par_{tier}.{extension}"
+            return "/tmp/{campaign}/" + par_pattern() + f"-par_{tier}.{extension}"
         else:
-            return "/tmp/" + par_pattern() + f"-par_{tier}_{name}.{extension}"
+            return "/tmp/{campaign}/" + par_pattern() + f"-par_{tier}_{name}.{extension}"
     else:
         return file_pattern
 
