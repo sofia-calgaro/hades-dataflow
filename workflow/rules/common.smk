@@ -61,6 +61,7 @@ def get_par_file(wildcards, tier):
 
     if Path(
         str(get_pattern_tier_daq(config).parent)
+        .replace("{campaign}", wildcards.campaign)
         .replace("{detector}", wildcards.detector)
         .replace("{measurement}", "th_HS2_lat_psa")
     ).is_dir():

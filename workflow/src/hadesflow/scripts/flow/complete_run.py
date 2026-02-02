@@ -86,9 +86,9 @@ def check_log_files(log_path, output_file, gen_output, warning_file=None):
 
 def find_gen_runs(gen_tier_path):
     # first look for non-concat tiers
-    paths = gen_tier_path.glob("*/*/*")
-    # use the directories to build a tier/detector/measurement string
-    return {"/".join(str(p).split("/")[-2:]) for p in paths}
+    paths = gen_tier_path.glob("*/*/*/*")
+    # use the directories to build a tier/detector/campaign/measurement string
+    return {"/".join(str(p).split("/")[-3:]) for p in paths}
 
 
 def build_file_dbs(gen_tier_path, outdir, ignore_keys_file=None):
@@ -107,12 +107,14 @@ def build_file_dbs(gen_tier_path, outdir, ignore_keys_file=None):
     for spec in runs:
         print(spec)
         speck = spec.split("/")
-        outdir.mkdir(parents=True, exist_ok=True)
+        run_outdir = outdir / speck[1]
+        run_outdir.mkdir(parents=True, exist_ok=True)
         # TODO: replace l200 with {experiment}
-        outfile = outdir / f"char_data-{speck[0]}-{speck[1]}-filedb.h5"
+        outfile = run_outdir / f"char_data-{speck[0]}-{speck[2]}-filedb.h5"
         logfile = (
             Path(pat.tmp_log_path(snakemake.params.config))
             / "filedb"
+            / speck[1]
             / outfile.with_suffix(".log").name
         )
 
